@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "c:\\Dev\\python\\piazure\\env\\Scripts\\python.exe",
+    "files.exclude": {
+        "**/.git": false
+    }
+}
