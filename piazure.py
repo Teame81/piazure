@@ -1,14 +1,15 @@
 import random
 import time
 
-
+from sense_hat import SenseHat
 from azure.iot.device import IoTHubDeviceClient, Message
 
 CONNECTION_STRING = "HostName=pihub-test.azure-devices.net;DeviceId=rasp-pi;SharedAccessKey=EnhKuGyDpqu25+JCw8bG+BqNkMFonkAHGTgg4QWvFIU="
 
 # Define the JSON message to send to IoT Hub.
-TEMPERATURE = 20.0
-HUMIDITY = 60
+
+sense = SenseHat()
+
 MSG_TXT = '{{"temperature": {temperature},"humidity": {humidity}}}'
 
 def iothub_client_init():
@@ -24,8 +25,8 @@ def iothub_client_telemetry_sample_run():
 
         while True:
             # Emulate a sense hat
-            temperature = TEMPERATURE + (random.random() * 15)
-            humidity = HUMIDITY + (random.random() * 20)
+            temperature = sense.get_temperature()
+            humidity = sense.get_humidity()
             msg_txt_formatted = MSG_TXT.format(temperature=temperature, humidity=humidity)
             message = Message(msg_txt_formatted)
 
@@ -38,6 +39,7 @@ def iothub_client_telemetry_sample_run():
 
             # Send the message.
             print( "Sending message: {}".format(message) )
+            sense.show_message(temperature)
             client.send_message(message)
             print ( "Message successfully sent" )
             time.sleep(1)
