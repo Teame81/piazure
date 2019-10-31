@@ -1,4 +1,3 @@
-import random
 import time
 
 from sense_hat import SenseHat
@@ -39,7 +38,7 @@ def iothub_client_telemetry_sample_run():
 
             # Send the message.
             print( "Sending message: {}".format(message) )
-            sense.show_message(temperature)
+            sense.show_message(str(int(temperature)))
             client.send_message(message)
             print ( "Message successfully sent" )
             time.sleep(1)
@@ -48,6 +47,6 @@ def iothub_client_telemetry_sample_run():
         print ( "IoTHubClient sample stopped" )
 
 if __name__ == '__main__':
-    print ( "IoT Hub Quickstart #1 - Simulated device" )
+    print ( "IoT Hub Connection established - Pi ")
     print ( "Press Ctrl-C to exit" )
     iothub_client_telemetry_sample_run()
